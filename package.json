@@ -1,0 +1,43 @@
+{
+	"name": "mqttdb",
+	"version": "0.0.0",
+	"description": "MQTT-MongoDB bridge",
+	"author": {
+		"name": "Anton Galtsev",
+		"email": "avgaltsev@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/avgaltsev/mqttdb"
+	},
+	"license": "MIT",
+	"type": "commonjs",
+	"directories": {
+		"lib": "./lib/",
+		"bin": "./bin/"
+	},
+	"exports": {
+		".": "./lib/index.js"
+	},
+	"main": "./lib/index.js",
+	"devDependencies": {
+		"@somethings/eslint-config-base": "^7.0.1",
+		"@somethings/eslint-config-typescript": "^4.0.1",
+		"@types/node": "^18.7.13",
+		"@typescript-eslint/eslint-plugin": "^5.35.1",
+		"@typescript-eslint/parser": "^5.35.1",
+		"eslint": "^8.23.0",
+		"typescript": "^4.8.2"
+	},
+	"dependencies": {
+		"mongodb": "^4.10.0",
+		"mqtt": "^4.3.7"
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"build": "tsc --skipLibCheck",
+		"watch": "tsc --skipLibCheck --watch",
+		"prepare": "npm run lint && npm run build",
+		"start": "./bin/mqttdb"
+	}
+}

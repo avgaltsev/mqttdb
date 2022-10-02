@@ -1,0 +1,11 @@
+{
+	"mqtt": {
+		"host": "",
+		"username": "",
+		"password": ""
+	},
+	"mongodb": {
+		"username": "",
+		"password": ""
+	}
+}
