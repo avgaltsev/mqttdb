@@ -1,11 +1,13 @@
 {
 	"mqtt": {
-		"host": "",
+		"url": "",
 		"username": "",
 		"password": ""
 	},
-	"mongodb": {
+	"database": {
+		"url": "",
 		"username": "",
-		"password": ""
+		"password": "",
+		"db": ""
 	}
 }

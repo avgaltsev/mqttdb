@@ -22,6 +22,62 @@
 		{
 			"files": ["*.ts"],
 			"rules": {
+				"@typescript-eslint/naming-convention": [
+					"error",
+					{
+						"selector": "default",
+						"format": ["camelCase"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "variable",
+						"modifiers": ["const", "global"],
+						"format": ["UPPER_CASE"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "typeAlias",
+						"format": ["PascalCase"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "enum",
+						"format": ["PascalCase"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "enumMember",
+						"format": ["UPPER_CASE"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "class",
+						"format": ["PascalCase"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "interface",
+						"format": ["PascalCase"],
+						"custom": {
+							"regex": "^I[A-Z]",
+							"match": false
+						},
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					},
+					{
+						"selector": "typeParameter",
+						"format": ["PascalCase"],
+						"leadingUnderscore": "forbid",
+						"trailingUnderscore": "forbid"
+					}
+				],
 				"@typescript-eslint/no-empty-interface": ["off"]
 			}
 		}
