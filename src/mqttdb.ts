@@ -4,6 +4,7 @@ import {Logger, logMethodCallSignature} from "./logger";
 import {Config} from "./config";
 import {Database} from "./database";
 import {Queue} from "./queue";
+import {Mqtt} from "./mqtt";
 
 interface Message {
 	topic: string,
@@ -16,6 +17,7 @@ interface Queues {
 
 export class MqttDb extends Logger {
 	private database: Database;
+	private mqtt: Mqtt;
 	private queues: Queues = {};
 
 	public constructor(
@@ -25,33 +27,14 @@ export class MqttDb extends Logger {
 
 		this.database = new Database(this.config.database);
 
-		this.test("topic2");
-	}
+		this.mqtt = new Mqtt(this.config.mqtt, (packet) => {
+			this.saveMessage({
+				topic: packet.topic,
+				payload: packet,
+			});
+		});
 
-	private async test(topic: string): Promise<void> {
-		setTimeout(async () => {
-			this.saveMessage({topic, payload: {a: "1a"}});
-			this.saveMessage({topic, payload: {a: "1b"}});
-		}, 1000);
-
-		setTimeout(async () => {
-			this.saveMessage({topic, payload: {a: "10a"}});
-			this.saveMessage({topic, payload: {a: "10b"}});
-			this.saveMessage({topic, payload: {a: "10c"}});
-		}, 10000);
-
-		setTimeout(async () => {
-			this.saveMessage({topic, payload: {a: "20a"}});
-			this.saveMessage({topic, payload: {a: "20b"}});
-			this.saveMessage({topic, payload: {a: "20c"}});
-			this.saveMessage({topic, payload: {a: "20d"}});
-		}, 20000);
-
-		setTimeout(async () => {
-			this.saveMessage({topic, payload: {a: "30a"}});
-			this.saveMessage({topic, payload: {a: "30b"}});
-			this.saveMessage({topic, payload: {a: "30c"}});
-		}, 30000);
+		this.mqtt;
 	}
 
 	@logMethodCallSignature()
@@ -70,8 +53,7 @@ export class MqttDb extends Logger {
 		}
 
 		this.logDebug("Existing queues:", Object.keys(this.queues));
-
-		this.logInfo(`Saving payload for topic ${topic}:`, message.payload);
+		this.logDebug(`Saving payload for topic ${topic}.`, message.payload);
 
 		queue.addItems(message.payload);
 	}

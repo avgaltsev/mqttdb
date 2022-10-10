@@ -1,6 +1,7 @@
 import {Logger, logMethodCallSignature} from "./logger";
 
-export type ItemHandler<T> = (items: Array<T>) => Promise<unknown>
+// TODO: Add eslint rule forcing semicolon in this line.
+export type ItemHandler<T> = (items: Array<T>) => Promise<unknown>;
 
 export class Queue<T> extends Logger {
 	private enqueuedItems: Array<T> = [];

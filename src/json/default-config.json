@@ -1,13 +1,14 @@
 {
-	"mqtt": {
-		"url": "",
-		"username": "",
-		"password": ""
-	},
 	"database": {
 		"url": "",
 		"username": "",
 		"password": "",
 		"db": ""
+	},
+
+	"mqtt": {
+		"url": "",
+		"username": "",
+		"password": ""
 	}
 }

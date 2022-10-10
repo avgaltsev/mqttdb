@@ -47,7 +47,7 @@ export class Database extends Logger {
 	@logMethodCallSignature()
 	public save(collectionName: string, items: Array<Document>): Promise<boolean> {
 		return this.getClient().then((client) => {
-			this.logInfo(`Inserting ${items.length} items.`);
+			this.logInfo(`Inserting ${items.length} items to collection ${collectionName}.`);
 			this.logDebug("Items to be inserted:", items);
 
 			const collection = client.db(this.config.db).collection(collectionName);
@@ -63,7 +63,7 @@ export class Database extends Logger {
 
 			return result;
 		}).then((result) => {
-			this.logInfo(`Insert operation succeeded, ${result.insertedCount} items saved.`);
+			this.logInfo(`Insert operation succeeded, ${result.insertedCount} items saved to collection ${collectionName}.`);
 
 			return result.acknowledged;
 		});

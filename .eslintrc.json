@@ -49,6 +49,8 @@
 						"leadingUnderscore": "forbid",
 						"trailingUnderscore": "forbid"
 					},
+					// TODO: Add all selectors
+					// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/naming-convention.md
 					{
 						"selector": "enumMember",
 						"format": ["UPPER_CASE"],

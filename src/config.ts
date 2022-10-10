@@ -6,8 +6,8 @@ import {JsonObject, isJsonObject} from "./json";
 import * as defaultConfig from "./json/default-config.json";
 
 export type Config = typeof defaultConfig;
-export type MqttConfig = typeof defaultConfig.mqtt;
 export type DatabaseConfig = typeof defaultConfig.database;
+export type MqttConfig = typeof defaultConfig.mqtt;
 
 function mergeConfigs<T extends JsonObject, K extends keyof T>(baseConfig: T, overrideConfig: JsonObject): T {
 	const properties = Object.keys(baseConfig) as Array<K>;
