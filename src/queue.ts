@@ -1,4 +1,4 @@
-import {Logger, logMethodCallSignature} from "./logger";
+import {Logger, logMethodCallSignature} from "@somethings/logger";
 
 // TODO: Add eslint rule forcing semicolon in this line.
 export type ItemHandler<T> = (items: Array<T>) => Promise<unknown>;

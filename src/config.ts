@@ -1,43 +1,13 @@
 import * as path from "path";
 import {readFile} from "fs/promises";
 
-import {JsonObject, isJsonObject} from "./json";
+import {mergeConfigs} from "@somethings/config";
 
 import * as defaultConfig from "./json/default-config.json";
 
 export type Config = typeof defaultConfig;
 export type DatabaseConfig = typeof defaultConfig.database;
 export type MqttConfig = typeof defaultConfig.mqtt;
-
-function mergeConfigs<T extends JsonObject, K extends keyof T>(baseConfig: T, overrideConfig: JsonObject): T {
-	const properties = Object.keys(baseConfig) as Array<K>;
-
-	return properties.reduce((result, property) => {
-		// Typescript bug: baseValue infers correct type here (T[K], or Json),
-		// but when I try use it somewhere it thinks it's Json | undefined.
-		// If I specify the type explicitly, it works fine.
-		const baseValue: T[K] = baseConfig[property];
-		const overrideValue = overrideConfig[property as string];
-
-		if (isJsonObject(baseValue)) {
-			if (overrideValue === undefined) {
-				result[property] = baseValue;
-			} else if (isJsonObject(overrideValue)) {
-				result[property] = mergeConfigs(baseValue, overrideValue);
-			} else {
-				result[property] = baseValue;
-			}
-		} else {
-			if (typeof baseValue === typeof overrideValue) {
-				result[property] = overrideValue as T[K];
-			} else {
-				result[property] = baseValue;
-			}
-		}
-
-		return result;
-	}, {...baseConfig});
-}
 
 const CONFIG_PATH = path.resolve(__dirname, "../config/config.json");
 

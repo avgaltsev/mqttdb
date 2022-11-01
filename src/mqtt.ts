@@ -1,6 +1,7 @@
 import {Client, connect, IPublishPacket} from "mqtt";
 
-import {Logger, logMethodCallSignature} from "./logger";
+import {Logger, logMethodCallSignature} from "@somethings/logger";
+
 import {MqttConfig} from "./config";
 
 export type MessageCallback = (message: IPublishPacket) => void;
@@ -21,6 +22,8 @@ export class Mqtt extends Logger {
 
 	@logMethodCallSignature()
 	private createClient(): Client {
+		this.logInfo("Creating client.");
+
 		const client = connect(this.config.url, {
 			username: this.config.username,
 			password: this.config.password,

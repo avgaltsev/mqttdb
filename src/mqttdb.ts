@@ -1,6 +1,7 @@
 import {Document} from "mongodb";
 
-import {Logger, logMethodCallSignature} from "./logger";
+import {Logger, logMethodCallSignature} from "@somethings/logger";
+
 import {Config} from "./config";
 import {Database} from "./database";
 import {Queue} from "./queue";
@@ -24,6 +25,8 @@ export class MqttDb extends Logger {
 		private config: Config,
 	) {
 		super();
+
+		this.logWarning("MqttDb started. Creating database and MQTT instances.");
 
 		this.database = new Database(this.config.database);
 

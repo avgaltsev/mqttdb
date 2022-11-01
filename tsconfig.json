@@ -2,14 +2,14 @@
 	"compilerOptions": {
 		"rootDir": "./src/",
 		"outDir": "./lib/",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
 
 		"target": "es2022",
 		"module": "commonjs",
-		"resolveJsonModule": true,
 		"declaration": false,
 
 		"lib": [
-			"scripthost",
 			"es2022"
 		],
 

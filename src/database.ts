@@ -1,6 +1,7 @@
 import {Document, MongoClient} from "mongodb";
 
-import {Logger, logMethodCallSignature} from "./logger";
+import {Logger, logMethodCallSignature} from "@somethings/logger";
+
 import {DatabaseConfig} from "./config";
 
 export class Database extends Logger {
