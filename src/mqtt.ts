@@ -7,6 +7,7 @@ import {MqttConfig} from "./config";
 export type MessageCallback = (message: IPublishPacket) => void;
 
 export class Mqtt extends Logger {
+	private excludePatterns: Array<RegExp>;
 	private client: Client;
 
 	public constructor(
@@ -14,6 +15,8 @@ export class Mqtt extends Logger {
 		private messageCallback: MessageCallback,
 	) {
 		super();
+
+		this.excludePatterns = this.config.exclude.map((pattern) => new RegExp(pattern));
 
 		this.client = this.createClient();
 
@@ -39,7 +42,7 @@ export class Mqtt extends Logger {
 
 			// There is a bug in mqttjs typings, it's not supporting null as an error
 			// but in fact it can be null if no error triggered.
-			client.subscribe("#", (error: Error | null) => {
+			client.subscribe(this.config.topics, (error: Error | null) => {
 				if (error !== null) {
 					this.logError("Subscription failed:", error);
 				} else {
@@ -49,9 +52,13 @@ export class Mqtt extends Logger {
 		});
 
 		client.on("message", (topic, payload, packet) => {
-			topic;
-
 			this.logDebug("MQTT message received:", packet);
+
+			if (this.excludePatterns.find((pattern) => topic.match(pattern)) !== undefined) {
+				this.logDebug("MQTT topic ignored:", topic);
+
+				return;
+			}
 
 			try {
 				const decodedPacket = {

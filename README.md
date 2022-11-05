@@ -1,5 +1,6 @@
 ```bash
 docker build -t avgaltsev/mqttdb:0.0.0 ./
+docker push avgaltsev/mqttdb:0.0.0
 ```
 
 Create mqttdb config.

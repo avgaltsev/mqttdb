@@ -9,6 +9,8 @@
 	"mqtt": {
 		"url": "",
 		"username": "",
-		"password": ""
+		"password": "",
+		"topics": [""],
+		"exclude": [""]
 	}
 }
