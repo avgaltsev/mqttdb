@@ -1,4 +1,4 @@
-import {Document, MongoClient} from "mongodb";
+import {Document, MongoClient, ObjectId} from "mongodb";
 
 import {Logger, logMethodCallSignature} from "@somethings/logger";
 
@@ -68,6 +68,10 @@ export class Database extends Logger {
 
 			return result.acknowledged;
 		});
+	}
+
+	public getId(): ObjectId {
+		return new ObjectId();
 	}
 }
 
