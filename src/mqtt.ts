@@ -70,7 +70,14 @@ export class Mqtt extends Logger {
 
 				this.messageCallback(decodedPacket);
 			} catch (error) {
-				this.logError("Decoding MQTT payload failed:", error);
+				const decodedPacket = {
+					...packet,
+					payload: payload.toString("utf8"),
+				};
+
+				this.logDebug("Decoding MQTT payload failed, keeping it as a string:", decodedPacket);
+
+				this.messageCallback(decodedPacket);
 			}
 		});
 
